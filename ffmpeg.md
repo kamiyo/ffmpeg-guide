@@ -141,3 +141,19 @@ If the audio is the one that is delayed, you have two options:
 `ffmpeg` has SO many possibilities. You can take a look at https://trac.ffmpeg.org/wiki and scroll down to the community contributed documentation, or the official documentation page: https://ffmpeg.org/ffmpeg.html.
 
 Finally, Google and Stackoverflow are your friend.
+
+As an example of something I just did recently, here's the command:
+
+`ffmpeg -ss 01:14:15 -i '.\Sean Chen Piano Faculty Recital' -t 00:06:45 -vf eq=gamma=1.1:brightness=0.1:contrast=1.2,fade=t=in:st=0:d=3,fade=t=out:st=402:d=3 -af afade=t=in:st=0:d=3,afade=t=out:st=402:d=3 -c:v libx264 -crf 19 -c:a aac -b:a 128k './output.mp4'`
+
+That is:
+* Start the cut at 1hr 14min 15sec
+* Input File
+* Render only 6min 45sec
+* Filter the video with
+* 1. Gamma 1.1, Brightness 0.1, Contrast 1.2
+* 2. Fade-in and Fade-out three seconds from start/end
+* 3. Fade-in and Fade-out audio three seconds from start/end
+* Using video codec libx264 with a constrant rate factor of 19
+* Using audio codec aac with 128kbps bitrate
+* Output
